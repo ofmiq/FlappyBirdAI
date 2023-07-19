@@ -6,6 +6,10 @@ pygame.font.init()
 WIN_WIDTH = 600
 WIN_HEIGHT = 800
 FLOOR = 730
+
+BIRD_START_POSITION = (230, 350)
+PIPE_POSITION = 700
+
 STAT_FONT = pygame.font.SysFont("comicsans", 50)
 END_FONT = pygame.font.SysFont("comicsans", 70)
 

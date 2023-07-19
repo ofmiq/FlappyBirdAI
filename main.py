@@ -1,6 +1,4 @@
 import neat
-import pygame
-
 from classes import *
 from typing import List
 
@@ -37,15 +35,16 @@ def eval_genomes(genomes: List[Tuple[int, neat.DefaultGenome]], config: neat.con
     nets = []
     birds = []
     ge = []
+
     for genome_id, genome in genomes:
         genome.fitness = 0
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(net)
-        birds.append(Bird(230, 350))
+        birds.append(Bird(*BIRD_START_POSITION))
         ge.append(genome)
 
     base = Base(FLOOR)
-    pipes = [Pipe(700)]
+    pipes = [Pipe(PIPE_POSITION)]
     score = 0
 
     clock = pygame.time.Clock()
@@ -62,9 +61,11 @@ def eval_genomes(genomes: List[Tuple[int, neat.DefaultGenome]], config: neat.con
                 break
 
         pipe_index = 0
+
         if len(birds) > 0:
             if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[0].PIPE_TOP.get_width():
                 pipe_index = 1
+
         for bird_id, bird in enumerate(birds):
             ge[bird_id].fitness += 0.1
             bird.move()
@@ -79,6 +80,7 @@ def eval_genomes(genomes: List[Tuple[int, neat.DefaultGenome]], config: neat.con
 
         remove_pipes = []
         add_pipe = False
+
         for pipe in pipes:
             pipe.move()
 
